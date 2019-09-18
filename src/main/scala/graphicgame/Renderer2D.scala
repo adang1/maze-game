@@ -35,41 +35,42 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   /**
    * This method is called to render things to the screen.
    */
-//  def render(level: Level, cx: Double, cy: Double): Unit = {
-//    lastCenterX = cx
-//    lastCenterY = cy
-//
-//    val drawWidth = (gc.canvas.getWidth / blockSize).toInt + 1
-//    val drawHeight = (gc.canvas.getWidth / blockSize).toInt + 1
-//
-//    // Draw walls and floors
-//    for {
-//      x <- cx.toInt - drawWidth / 2 - 1 to cx.toInt + drawWidth / 2 + 1
-//      y <- cy.toInt - drawHeight / 2 - 1 to cy.toInt + drawHeight / 2 + 1
-//    } {
-//      val img = level.maze(x, y) match {
-//        case Wall => wallImage
-//        case Floor => floorImage
-//      }
-//      gc.drawImage(img, blocksToPixelsX(x), blocksToPixelsY(y), blockSize, blockSize)
-//    }
-//
-//    // Draw entities
-//    for (e <- level.entities) {
-//      val img = e match {
-//        case p: Player => playerImage
-//        case e: Enemy => enemyImage
-//        case b: Bullet => bulletImage
-//        case g: Generator => generatorImage
-//      }
-//      if(level.maze.wrap) {
-//        for(rx <- -1 to 1; ry <- -1 to 1)
-//    	    gc.drawImage(img, blocksToPixelsX(e.x-e.width/2+rx*level.maze.width), blocksToPixelsY(e.y-e.height/2+ry*level.maze.height), e.width*blockSize, e.height*blockSize)
-//      } else {
-//    	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
-//      }
-//    }
-//  }
+ def render(level: Level, cx: Double, cy: Double): Unit = {
+   lastCenterX = cx
+   lastCenterY = cy
+
+   val drawWidth = (gc.canvas.getWidth / blockSize).toInt + 1
+   val drawHeight = (gc.canvas.getWidth / blockSize).toInt + 1
+
+   // Draw walls and floors
+   for {
+     x <- cx.toInt - drawWidth / 2 - 1 to cx.toInt + drawWidth / 2 + 1
+     y <- cy.toInt - drawHeight / 2 - 1 to cy.toInt + drawHeight / 2 + 1
+   } {
+     val img = level.maze(x, y) match {
+       case Wall => wallImage
+       case Floor => floorImage
+     }
+     println(img.width())
+     gc.drawImage(img, blocksToPixelsX(x), blocksToPixelsY(y), blockSize, blockSize)
+   }
+
+   // Draw entities
+   for (e <- level.entities) {
+     val img = e match {
+       case p: Player => playerImage
+       case e: Enemy => enemyImage
+      //  case b: Bullet => bulletImage
+      //  case g: Generator => generatorImage
+     }
+     if(level.maze.wrap) {
+       for(rx <- -1 to 1; ry <- -1 to 1)
+   	    gc.drawImage(img, blocksToPixelsX(e.x-e.width/2+rx*level.maze.width), blocksToPixelsY(e.y-e.height/2+ry*level.maze.height), e.width*blockSize, e.height*blockSize)
+     } else {
+   	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
+     }
+   }
+ }
 
 }
 
