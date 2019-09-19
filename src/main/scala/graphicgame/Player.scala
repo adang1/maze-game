@@ -10,25 +10,33 @@ class Player(
     def width: Double = 1
     def height: Double = 1
 
-    val dropInterval = 1.0
-               private var dropDelay = 0.0
-               val moveInterval = 0.1
-               private var moveDelay = 0.0
-               private var leftHeld = false
-               private var rightHeld = false
-               private var upHeld = false
-               private var downHeld = false
-             
-               def leftPressed() = leftHeld = true
-               def rightPressed() = rightHeld = true
-               def upPressed() = upHeld = true
-               def downPressed() = downHeld = true
-               def leftReleased() = leftHeld = false
-               def rightReleased() = rightHeld = false
-               def upReleased() = upHeld = false
-               def downReleased() = downHeld = false
-    
-    def update(delay: Double): Unit = ???
+    val speed = 50
+  
+    def move(delay:Double) = {
+        if (leftHeld && level.maze.isClear(x-1, y, width, height, this)) _x -= speed*delay
+        if (rightHeld && level.maze.isClear(x+1, y, width, height, this)) _x += speed*delay
+        if (upHeld && level.maze.isClear(x, y-1, width, height, this)) _y -= speed*delay
+        if (downHeld && level.maze.isClear(x, y+1, width, height, this)) _y += speed*delay
+    }
+
+    private var leftHeld = false
+    private var rightHeld = false
+    private var upHeld = false
+    private var downHeld = false
+  
+    def leftPressed() = leftHeld = true
+    def rightPressed() = rightHeld = true
+    def upPressed() = upHeld = true
+    def downPressed() = downHeld = true
+    def leftReleased() = leftHeld = false
+    def rightReleased() = rightHeld = false
+    def upReleased() = upHeld = false
+    def downReleased() = downHeld = false
+
+    def update(delay: Double): Unit = {
+        move(delay)
+
+    }
     def postCheck(): Unit = ???
     def stillHere(): Boolean = ???
 }   

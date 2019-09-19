@@ -32,20 +32,31 @@ object Main extends JFXApp {
 		title = "2D Snipes" // Change this to match the theme of your game.
 		scene = new Scene(800, 800) {
 			content = canvas
+			
 			onKeyPressed = (ke: KeyEvent) => {
-				println("Key pressed")
 				ke.code match {
-					case KeyCode.Left =>
-					case _ =>
+					case KeyCode.Left => player.leftPressed()
+					case KeyCode.Right => player.rightPressed()
+					case KeyCode.Up => player.upPressed()
+					case KeyCode.Down => player.downPressed()
+					case _ => 
 				}
 			}
-	
+			
+			onKeyReleased = (ke: KeyEvent) => {
+				ke.code match {
+					case KeyCode.Left => player.leftReleased()
+					case KeyCode.Right => player.rightReleased()
+					case KeyCode.Up => player.upReleased()
+					case KeyCode.Down => player.downReleased()
+					case _ => 
+				}
+			}
 			var lastTime = -1L
 			val timer = AnimationTimer(time => {
 				if (lastTime > 0) {
 				val delay = (time - lastTime)/1e9
-				 
-				 level.updateAll(delay)
+				level.updateAll(delay)
 				renderer.render(level, player.x, player.y)
 			}
 			lastTime = time
