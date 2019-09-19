@@ -51,7 +51,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
        case Wall => wallImage
        case Floor => floorImage
      }
-     println(img.width())
+     //println(img.width())
      gc.drawImage(img, blocksToPixelsX(x), blocksToPixelsY(y), blockSize, blockSize)
    }
 
