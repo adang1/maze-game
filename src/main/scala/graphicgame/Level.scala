@@ -8,7 +8,7 @@ class Level (val maze: Maze,
                
              
                def updateAll(delay: Double): Unit = {
-               for (e <- _entities) e.update(_)
+               for (e <- _entities) e.update(delay)
                 
               }
                

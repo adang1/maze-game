@@ -10,13 +10,13 @@ class Player(
     def width: Double = 1
     def height: Double = 1
 
-    val speed = 50
+    val speed = 5
   
     def move(delay:Double) = {
-        if (leftHeld && level.maze.isClear(x-1, y, width, height, this)) _x -= speed*delay
-        if (rightHeld && level.maze.isClear(x+1, y, width, height, this)) _x += speed*delay
-        if (upHeld && level.maze.isClear(x, y-1, width, height, this)) _y -= speed*delay
-        if (downHeld && level.maze.isClear(x, y+1, width, height, this)) _y += speed*delay
+        if (leftHeld && level.maze.isClear(x-0.5, y, width, height, this)) _x -= speed*delay
+        if (rightHeld && level.maze.isClear(x+0.5, y, width, height, this)) _x += speed*delay
+        if (upHeld && level.maze.isClear(x, y-0.5, width, height, this)) _y -= speed*delay
+        if (downHeld && level.maze.isClear(x, y+0.5, width, height, this)) _y += speed*delay
     }
 
     private var leftHeld = false
@@ -35,7 +35,6 @@ class Player(
 
     def update(delay: Double): Unit = {
         move(delay)
-
     }
     def postCheck(): Unit = ???
     def stillHere(): Boolean = ???
