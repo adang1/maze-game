@@ -16,8 +16,12 @@ class Enemy (
 
      def move(delay: Double) = {
         val r = new Random()
-        _x += r.nextDouble*delay
-        _y += r.nextDouble*delay
+      
+        if (level.maze.isClear(x-0.1, y, width, height, this)) _x -= r.nextDouble*delay
+        if (level.maze.isClear(x+0.1, y, width, height, this)) _x += r.nextDouble*delay
+        if (level.maze.isClear(x, y-0.1, width, height, this)) _y -= r.nextDouble*delay
+        if (level.maze.isClear(x, y+0.1, width, height, this)) _y += r.nextDouble*delay
+        
      }
      def update(delay: Double): Unit = {
         move(delay)

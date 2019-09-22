@@ -13,10 +13,10 @@ class Player(
     val speed = 5
   
     def move(delay:Double) = {
-        if (leftHeld && level.maze.isClear(x-0.5, y, width, height, this)) _x -= speed*delay
-        if (rightHeld && level.maze.isClear(x+0.5, y, width, height, this)) _x += speed*delay
-        if (upHeld && level.maze.isClear(x, y-0.5, width, height, this)) _y -= speed*delay
-        if (downHeld && level.maze.isClear(x, y+0.5, width, height, this)) _y += speed*delay
+        if (leftHeld && level.maze.isClear(x-0.1, y, width, height, this)) _x -= speed*delay
+        if (rightHeld && level.maze.isClear(x+0.1, y, width, height, this)) _x += speed*delay
+        if (upHeld && level.maze.isClear(x, y-0.1, width, height, this)) _y -= speed*delay
+        if (downHeld && level.maze.isClear(x, y+0.1, width, height, this)) _y += speed*delay
     }
 
     private var leftHeld = false
