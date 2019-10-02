@@ -25,9 +25,11 @@ object Main extends JFXApp {
 	val maze = RandomMaze(3, false, 20, 20, 0.6)
 	val level = new Level(maze, Nil)
 	val player = new Player(50, 50, level)
-	val enemy = new Enemy(51, 50, level)
+	val enemy = new Enemy(60, 50, level)
+	val bullet = new Projectile(51, 50, level)
 	level += player
 	level += enemy
+	level += bullet
 	stage = new JFXApp.PrimaryStage {
 		title = "2D Snipes" // Change this to match the theme of your game.
 		scene = new Scene(800, 800) {
@@ -39,6 +41,10 @@ object Main extends JFXApp {
 					case KeyCode.Right => player.rightPressed()
 					case KeyCode.Up => player.upPressed()
 					case KeyCode.Down => player.downPressed()
+					case KeyCode.A => bullet.leftPressed()
+					case KeyCode.D => bullet.rightTyped()
+					case KeyCode.W => bullet.upTyped()
+					case KeyCode.S => bullet.downTyped()
 					case _ => 
 				}
 			}
@@ -52,6 +58,7 @@ object Main extends JFXApp {
 					case _ => 
 				}
 			}
+			
 			var lastTime = -1L
 			val timer = AnimationTimer(time => {
 				if (lastTime > 0) {
