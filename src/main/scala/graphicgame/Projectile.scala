@@ -10,17 +10,29 @@ class Projectile(
      def width: Double = 0.2
      def height: Double = 0.2
      
-     val speed = 10
+     val speed = 7
 
-
-    private var leftHeld = false
-    private var rightHeld = false
-    private var upHeld = false
-    private var downHeld = false
-  
+     def move(delay:Double) = {
+        if (aHeld && level.maze.isClear(x-0.1, y, width, height, this)) _x -= speed*delay
+        else if (dHeld && level.maze.isClear(x+0.1, y, width, height, this)) _x += speed*delay
+        else if (wHeld && level.maze.isClear(x, y-0.1, width, height, this)) _y -= speed*delay
+        else if (sHeld && level.maze.isClear(x, y+0.1, width, height, this)) _y += speed*delay
+        else {
+            _x = Main.player.x
+            _y = Main.player.y
+        }
+    }
+    private var aHeld = false
+    private var dHeld = false
+    private var wHeld = false
+    private var sHeld = false
+    def aPressed() = aHeld = true
+    def dPressed() = dHeld = true
+    def wPressed() = wHeld = true
+    def sPressed() = sHeld = true
      
      def update(delay: Double): Unit = {
-         
+        move(delay)
      }
      def postCheck(): Unit = ???
      def stillHere(): Boolean = ???

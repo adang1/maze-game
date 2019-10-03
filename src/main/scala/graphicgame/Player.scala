@@ -3,6 +3,7 @@ package graphicgame
 class Player(
    private var _x: Double,
    private var _y: Double,
+   private var p: List[Projectile],
     val level: Level
 ) extends Entity {
     def x: Double = _x
@@ -11,6 +12,8 @@ class Player(
     def height: Double = 1
 
     val speed = 5
+
+    
   
     def move(delay:Double) = {
         if (leftHeld && level.maze.isClear(x-0.1, y, width, height, this)) _x -= speed*delay
