@@ -30,7 +30,10 @@ class Projectile(
     def dPressed() = dHeld = true
     def wPressed() = wHeld = true
     def sPressed() = sHeld = true
-     
+    def aReleased() = aHeld = false
+    def dReleased() = dHeld = false
+    def wReleased() = wHeld = false
+    def sReleased() = sHeld = false
      def update(delay: Double): Unit = {
         move(delay)
      }

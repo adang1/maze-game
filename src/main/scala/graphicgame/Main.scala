@@ -73,6 +73,10 @@ object Main extends JFXApp {
 					case KeyCode.Right => player.rightReleased()
 					case KeyCode.Up => player.upReleased()
 					case KeyCode.Down => player.downReleased()
+					case KeyCode.A => bullet(0).aReleased()
+					case KeyCode.D => bullet(0).dReleased()
+					case KeyCode.W => bullet(0).wReleased()
+					case KeyCode.S => bullet(0).sReleased()
 					case _ => 
 				}
 			}
