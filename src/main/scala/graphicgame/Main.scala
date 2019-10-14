@@ -24,18 +24,12 @@ object Main extends JFXApp {
 	// val entities = Seq(player, enemy)
 	val maze = RandomMaze(3, false, 20, 20, 0.6)
 	val level = new Level(maze, Nil)
-	var bullet = List[Projectile]()
-	for (i <- 1 to 100) {
-		bullet ::= new Projectile(50, 50, level) 
-	}
-	val player = new Player(50, 50, bullet, level)
+	val player = new Player(50, 50, level)
 	val enemy = new Enemy(60, 50, level)
 	
 	level += player
 	level += enemy
-	for (i <- bullet) {
-		level += i
-	}
+	
 	stage = new JFXApp.PrimaryStage {
 		title = "2D Snipes" // Change this to match the theme of your game.
 		scene = new Scene(800, 800) {
@@ -48,20 +42,20 @@ object Main extends JFXApp {
 					case KeyCode.Up => player.upPressed()
 					case KeyCode.Down => player.downPressed()
 					case KeyCode.A => {
-						bullet(0).aPressed()
-						bullet = bullet.tail
+						player.aPressed()
+					
 					}
 					case KeyCode.D => {
-						bullet(0).dPressed()
-						bullet = bullet.tail
+						player.dPressed()
+						
 					}
 					case KeyCode.W => {
-						bullet(0).wPressed()
-						bullet = bullet.tail
+						player.wPressed()
+						
 					}
 					case KeyCode.S => {
-						bullet(0).sPressed()
-						bullet = bullet.tail
+						player.sPressed()
+						
 					}
 					case _ => 
 				}
@@ -73,10 +67,10 @@ object Main extends JFXApp {
 					case KeyCode.Right => player.rightReleased()
 					case KeyCode.Up => player.upReleased()
 					case KeyCode.Down => player.downReleased()
-					case KeyCode.A => bullet(0).aReleased()
-					case KeyCode.D => bullet(0).dReleased()
-					case KeyCode.W => bullet(0).wReleased()
-					case KeyCode.S => bullet(0).sReleased()
+					case KeyCode.A => player.aReleased()
+					case KeyCode.D => player.dReleased()
+					case KeyCode.W => player.wReleased()
+					case KeyCode.S => player.sReleased()
 					case _ => 
 				}
 			}

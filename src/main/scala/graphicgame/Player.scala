@@ -3,7 +3,6 @@ package graphicgame
 class Player(
    private var _x: Double,
    private var _y: Double,
-   private var p: List[Projectile],
     val level: Level
 ) extends Entity {
     def x: Double = _x
@@ -11,16 +10,38 @@ class Player(
     def width: Double = 1
     def height: Double = 1
 
-    val speed = 5
-
-    
+    val speedP = 5
+    private var count = 10
   
     def move(delay:Double) = {
-        if (leftHeld && level.maze.isClear(x-0.1, y, width, height, this)) _x -= speed*delay
-        if (rightHeld && level.maze.isClear(x+0.1, y, width, height, this)) _x += speed*delay
-        if (upHeld && level.maze.isClear(x, y-0.1, width, height, this)) _y -= speed*delay
-        if (downHeld && level.maze.isClear(x, y+0.1, width, height, this)) _y += speed*delay
+        if (leftHeld && level.maze.isClear(x-0.1, y, width, height, this)) _x -= speedP*delay
+        if (rightHeld && level.maze.isClear(x+0.1, y, width, height, this)) _x += speedP*delay
+        if (upHeld && level.maze.isClear(x, y-0.1, width, height, this)) _y -= speedP*delay
+        if (downHeld && level.maze.isClear(x, y+0.1, width, height, this)) _y += speedP*delay
     }
+        def fire(delay:Double) = {
+            count -= 1
+        if ((aHeld) && (count <= 0)) {
+            count = 10
+            val b = new Projectile(_x, _y, level, "left")
+            level += b
+        }
+        if ((dHeld) && (count <= 0)) {
+            count = 10
+            val b = new Projectile(_x, _y, level, "right")
+            level += b
+        }
+        if ((wHeld) && (count <= 0)) {
+            count = 10
+            val b = new Projectile(_x, _y, level, "up")
+            level += b
+        }
+        if ((sHeld) && (count <= 0)) {
+            count = 10
+            val b = new Projectile(_x, _y, level, "down")
+            level += b
+        }
+        }
 
     private var leftHeld = false
     private var rightHeld = false
@@ -35,10 +56,24 @@ class Player(
     def rightReleased() = rightHeld = false
     def upReleased() = upHeld = false
     def downReleased() = downHeld = false
+    
+    private var aHeld = false
+    private var dHeld = false
+    private var wHeld = false
+    private var sHeld = false
+    def aPressed() = aHeld = true
+    def dPressed() = dHeld = true
+    def wPressed() = wHeld = true
+    def sPressed() = sHeld = true
+    def aReleased() = aHeld = false
+    def dReleased() = dHeld = false
+    def wReleased() = wHeld = false
+    def sReleased() = sHeld = false
 
     def update(delay: Double): Unit = {
         move(delay)
+        fire(delay)
     }
     def postCheck(): Unit = ???
-    def stillHere(): Boolean = ???
+    def stillHere(): Boolean = true
 }   

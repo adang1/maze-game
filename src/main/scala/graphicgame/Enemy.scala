@@ -53,5 +53,5 @@ class Enemy (
         move(delay)
      }
      def postCheck(): Unit = ???
-     def stillHere(): Boolean = ???
+     def stillHere(): Boolean = true
  }
