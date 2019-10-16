@@ -10,7 +10,7 @@ class Projectile(
   def y: Double = _y
   def width: Double = 0.2
   def height: Double = 0.2
-
+  def etype = "b"
   private var here = true
 
   val speedB = 10

@@ -9,7 +9,7 @@ class Player(
     def y: Double = _y
     def width: Double = 1
     def height: Double = 1
-
+    def etype = "p"
     val speedP = 5
     private var count = 10
   
@@ -70,10 +70,14 @@ class Player(
     def wReleased() = wHeld = false
     def sReleased() = sHeld = false
 
+    private var here = true
     def update(delay: Double): Unit = {
         move(delay)
         fire(delay)
-    }
+        for (e <- level.enemies)
+        if (Entity.intersect(e, this) == true) here = false
+  }
+    
     def postCheck(): Unit = ???
-    def stillHere(): Boolean = true
+    def stillHere(): Boolean = here
 }   

@@ -9,7 +9,7 @@ class Enemy (
      def y: Double = _y
      def width: Double = 1
      def height: Double = 1
-     
+     def etype = "e"
      val speed = 4
 
      def move(delay: Double) = {
@@ -48,10 +48,13 @@ class Enemy (
             1000000000
     }
     }
-
+    
+    private var here = true
      def update(delay: Double): Unit = {
         move(delay)
+        for (b <- level.bullets)
+           if (Entity.intersect(b, this) == true) here = false
      }
      def postCheck(): Unit = ???
-     def stillHere(): Boolean = true
+     def stillHere(): Boolean = here
  }

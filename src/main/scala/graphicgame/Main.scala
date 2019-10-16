@@ -13,6 +13,7 @@ import scalafx.scene.canvas.Canvas
 import scalafx.animation.AnimationTimer
 import scalafx.scene.input.KeyEvent
 import scalafx.scene.input.KeyCode
+import scala.util.Random
 
 /**
  * This is a stub for the graphical game.
@@ -25,10 +26,14 @@ object Main extends JFXApp {
 	val maze = RandomMaze(3, false, 20, 20, 0.6)
 	val level = new Level(maze, Nil)
 	val player = new Player(50, 50, level)
-	val enemy = new Enemy(60, 50, level)
 	
-	level += player
+	val r = new Random
+	for (i <- 1 to 20) {
+	val enemy = new Enemy(r.nextInt(100), r.nextInt(100), level)
 	level += enemy
+	}
+	level += player
+	
 	
 	stage = new JFXApp.PrimaryStage {
 		title = "2D Snipes" // Change this to match the theme of your game.
