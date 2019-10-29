@@ -11,7 +11,7 @@ class Player(
     def height: Double = 1
     def etype = "p"
     val speedP = 5
-    private var count = 10
+    private var count = 15
   
     def move(delay:Double) = {
         if (leftHeld && level.maze.isClear(x-0.1, y, width, height, this)) _x -= speedP*delay
@@ -22,22 +22,22 @@ class Player(
         def fire(delay:Double) = {
             count -= 1
         if ((aHeld) && (count <= 0)) {
-            count = 10
+            count = 15
             val b = new Projectile(_x, _y, level, "left")
             level += b
         }
         if ((dHeld) && (count <= 0)) {
-            count = 10
+            count = 15
             val b = new Projectile(_x, _y, level, "right")
             level += b
         }
         if ((wHeld) && (count <= 0)) {
-            count = 10
+            count = 15
             val b = new Projectile(_x, _y, level, "up")
             level += b
         }
         if ((sHeld) && (count <= 0)) {
-            count = 10
+            count = 15
             val b = new Projectile(_x, _y, level, "down")
             level += b
         }
