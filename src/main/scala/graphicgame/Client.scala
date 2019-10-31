@@ -1,13 +1,23 @@
 package graphicgame
 
+import scalafx.Includes._
+import scalafx.application.JFXApp
+import scalafx.scene.canvas.Canvas
+import scalafx.scene.Scene
+import scalafx.scene.input.KeyEvent
+import scalafx.scene.input.KeyCode
+import java.net.Socket
+import java.io.ObjectOutputStream
+import java.io.ObjectInputStream
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import scalafx.application.Platform
 import scalafx.scene.control.TextInputDialog
 
+
 object Client extends JFXApp {
   val canvas = new Canvas(800, 800)
-  val renderer = new Renderer(canvas)
+  val renderer = new Renderer2D(gc, blksize)
 
   val dialog = new TextInputDialog("localhost")
   dialog.title = "Server Machine"
@@ -16,6 +26,8 @@ object Client extends JFXApp {
 
   val sock = new Socket("localhost", 4041)
   val out = new ObjectOutputStream(sock.getOutputStream())
+  val in = new ObjectInputStream(sock.getInputStream())
+  
   val keyMap = Map[KeyCode, KeyEnums.Value](
     KeyCode.Left -> KeyEnums.Left,
     KeyCode.Right -> KeyEnums.Right,
@@ -39,7 +51,7 @@ object Client extends JFXApp {
       Future {
         while (true) {
           val pb = in.readObject() match {
-            case board: PassableBoard => board
+            case level: PassableLevel => level
           }
           Platform.runLater(renderer.render(pb))
         }

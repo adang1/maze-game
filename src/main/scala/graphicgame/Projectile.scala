@@ -26,6 +26,8 @@ class Projectile(
     else here = false
 
   }
+  
+  def makePassable: PassableEntity = new PassableEntity("b", x, y, width, height)
   def postCheck(): Unit = ???
   def stillHere(): Boolean = here
 }

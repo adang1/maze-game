@@ -8,9 +8,10 @@ import scala.collection.mutable
 import java.util.concurrent.LinkedBlockingQueue
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import java.net.ServerSocket
 
 object Server extends App {
-  val board = new Board
+  val level = new Level
   case class NetworkPlayer(
       sock: Socket,
       in: ObjectInputStream,
@@ -30,12 +31,11 @@ object Server extends App {
       val sock = ss.accept()
       val in = new ObjectInputStream(sock.getInputStream())
       val out = new ObjectOutputStream(sock.getOutputStream())
-      val board = new Board
+      val player = new Player(50, 50, level)
       playerQueue.put(NetworkPlayer(sock, in, out, board))
     }
   }
 
-  var lastTime = -1L
   var lastTime = System.nanoTime()
   val sendInterval = 0.05
   var sendDelay = 0.0
@@ -45,17 +45,17 @@ object Server extends App {
       val key = in.readObject
       if (code == 98) {
         key match {
-          case KeyEnums.Left  => board.leftPressed()
-          case KeyEnums.Right => board.rightPressed()
-          case KeyEnums.Up    => board.upPressed()
-          case KeyEnums.Down  => board.downPressed()
+          case KeyEnums.Left  => player.leftPressed()
+          case KeyEnums.Right => player.rightPressed()
+          case KeyEnums.Up    => player.upPressed()
+          case KeyEnums.Down  => player.downPressed()
           case _              =>
         }
       } else {
         key match {
-          case KeyEnums.Left  => board.leftReleased()
-          case KeyEnums.Right => board.rightReleased()
-          case KeyEnums.Down  => board.downReleased()
+          case KeyEnums.Left  => player.leftReleased()
+          case KeyEnums.Right => player.rightReleased()
+          case KeyEnums.Down  => player.downReleased()
           case _              =>
         }
       }
@@ -67,10 +67,10 @@ object Server extends App {
       if (lastTime > 0) {
         val delay = (time - lastTime) / 1e9
         sendDelay += delay
-        board.update(delay)
+        level.update(delay)
         if (sendDelay >= sendInterval) {
-          val pb = board.makePassable
-          // out.writeInt(99)
+          val pb = level.makePassable
+          out.writeInt(99)
           out.writeObject(pb)
           sendDelay = 0.0
           val delay = (time - lastTime) / 1e9
@@ -83,17 +83,17 @@ object Server extends App {
               val key = np.in.readObject
               if (code == 98) {
                 key match {
-                  case KeyEnums.Left  => np.board.leftPressed()
-                  case KeyEnums.Right => np.board.rightPressed()
-                  case KeyEnums.Up    => np.board.upPressed()
-                  case KeyEnums.Down  => np.board.downPressed()
+                  case KeyEnums.Left  => np.player.leftPressed()
+                  case KeyEnums.Right => np.player.rightPressed()
+                  case KeyEnums.Up    => np.player.upPressed()
+                  case KeyEnums.Down  => np.player.downPressed()
                   case _              =>
                 }
               } else {
                 key match {
-                  case KeyEnums.Left  => np.board.leftReleased()
-                  case KeyEnums.Right => np.board.rightReleased()
-                  case KeyEnums.Down  => np.board.downReleased()
+                  case KeyEnums.Left  => np.player.leftReleased()
+                  case KeyEnums.Right => np.player.rightReleased()
+                  case KeyEnums.Down  => np.player.downReleased()
                   case _              =>
                 }
               }

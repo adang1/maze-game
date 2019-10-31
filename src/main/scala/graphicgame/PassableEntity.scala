@@ -1,3 +1,7 @@
 package graphicgame
 
-case class PassableEntity(style: Int, x: Double, y: Double, width: Double, height: Double)
+case class PassableEntity(style: String, 
+                        x: Double, 
+                        y: Double, 
+                        width: Double, 
+                        height: Double)

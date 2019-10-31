@@ -57,4 +57,5 @@ class Enemy (
      }
      def postCheck(): Unit = ???
      def stillHere(): Boolean = here
+     def makePassable: PassableEntity = new PassableEntity("e", x, y, width, height)
  }

@@ -14,5 +14,7 @@ class Level (val maze: Maze,
                 e.update(delay)
                }
               }
-               
+               def makePassable: PassableLevel = {
+                 new PassableLevel(maze, entities.map(_.makePassable))
+               }
             }

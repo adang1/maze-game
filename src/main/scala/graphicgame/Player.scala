@@ -80,4 +80,7 @@ class Player(
     
     def postCheck(): Unit = ???
     def stillHere(): Boolean = here
+    def makePassable: PassableEntity = {
+        new PassableEntity("p", x, y, width, height)
+    }
 }   
