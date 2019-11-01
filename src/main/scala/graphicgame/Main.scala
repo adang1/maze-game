@@ -22,7 +22,6 @@ object Main extends JFXApp {
 	val canvas = new Canvas(800, 800)
 	val gc = canvas.graphicsContext2D
 	val renderer = new Renderer2D(gc, 50)
-	// val entities = Seq(player, enemy)
 	val maze = RandomMaze(3, false, 20, 20, 0.6)
 	val level = new Level(maze, Nil)
 	val player = new Player(50, 50, level)
@@ -85,7 +84,7 @@ object Main extends JFXApp {
 				if (lastTime > 0) {
 				val delay = (time - lastTime)/1e9
 				level.updateAll(delay)
-				renderer.render(level, player.x, player.y)
+				renderer.render(level.makePassable, player.x, player.y)
 			}
 			lastTime = time
 		})

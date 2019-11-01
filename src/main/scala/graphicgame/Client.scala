@@ -17,7 +17,8 @@ import scalafx.scene.control.TextInputDialog
 
 object Client extends JFXApp {
   val canvas = new Canvas(800, 800)
-  val renderer = new Renderer2D(gc, blksize)
+  val gc = canvas.graphicsContext2D
+	val renderer = new Renderer2D(gc, 50)
 
   val dialog = new TextInputDialog("localhost")
   dialog.title = "Server Machine"
@@ -35,7 +36,7 @@ object Client extends JFXApp {
     KeyCode.Down -> KeyEnums.Down
   ).withDefaultValue(KeyEnums.Other)
   stage = new JFXApp.PrimaryStage {
-		title = "Dr. Mario"
+		title = "2D Snipes"
 		scene = new Scene(800, 800) {
 			content = canvas
 			onKeyPressed = (ke: KeyEvent) => {
@@ -53,7 +54,7 @@ object Client extends JFXApp {
           val pb = in.readObject() match {
             case level: PassableLevel => level
           }
-          Platform.runLater(renderer.render(pb))
+          Platform.runLater(renderer.render(pb, 50, 50))
         }
       }
     }

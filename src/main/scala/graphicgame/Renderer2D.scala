@@ -57,12 +57,12 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
 
    // Draw entities
    for (e <- level.entities) {
-     val img = e match {
-       case p: Player => playerImage
-       case e: Enemy => enemyImage
-       case b: Projectile => projectileImage
+     var img = playerImage 
+       if (e.style == "p") img = playerImage
+       if (e.style == "e") img = enemyImage
+       if (e.style == "b") img = projectileImage
       //  case g: Generator => generatorImage
-     }
+     
      if(level.maze.wrap) {
        for(rx <- -1 to 1; ry <- -1 to 1)
    	    gc.drawImage(img, blocksToPixelsX(e.x-e.width/2+rx*level.maze.width), blocksToPixelsY(e.y-e.height/2+ry*level.maze.height), e.width*blockSize, e.height*blockSize)
