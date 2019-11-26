@@ -42,11 +42,13 @@ object Client extends JFXApp {
 			onKeyPressed = (ke: KeyEvent) => {
         out.writeInt(98)
         out.writeObject(keyMap(ke.code))
+        out.flush()
 			}
 			
 			onKeyReleased = (ke: KeyEvent) => {
         out.writeInt(97)
         out.writeObject(keyMap(ke.code))
+        out.flush()
       }
       
       Future {
@@ -54,7 +56,9 @@ object Client extends JFXApp {
           val pb = in.readObject() match {
             case level: PassableLevel => level
           }
-          Platform.runLater(renderer.render(pb, 50, 50))
+          val x = in.readDouble()
+          val y = in.readDouble()
+          Platform.runLater(renderer.render(pb, x, y))
         }
       }
     }

@@ -90,3 +90,8 @@ object Renderer2D {
     }
   }  
 }
+
+
+//score = parameter in Renderer
+//var score in Player.
+//bullet needs to know which player/enemy it shot
