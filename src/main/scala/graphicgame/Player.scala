@@ -20,7 +20,8 @@ class Player(
           width,
           height,
           this
-        )) _x -= speedP * delay
+        )) {_x -= speedP * delay
+        println(x,delay)}
     if (rightHeld && level.maze.isClear(
           x + speedP * delay,
           y,

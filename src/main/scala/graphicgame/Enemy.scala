@@ -13,16 +13,22 @@ class Enemy (
      val speed = 4
 
      def move(delay: Double) = {
-        val uStep = shortestPath(level.maze, _x, _y-1, Main.player.x, Main.player.y)
-        val dStep = shortestPath(level.maze, _x, _y+1, Main.player.x, Main.player.y)
-        val lStep = shortestPath(level.maze, _x-1, _y, Main.player.x, Main.player.y)
-        val rStep = shortestPath(level.maze, _x+1, _y, Main.player.x, Main.player.y)
+         val players = level.players
+        if (players.nonEmpty) {
+            val player: Player = players.head
+            val uStep = shortestPath(level.maze, _x, _y-1, player.x, player.y)
+            val dStep = shortestPath(level.maze, _x, _y+1, player.x, player.y)
+            val lStep = shortestPath(level.maze, _x-1, _y, player.x, player.y)
+            val rStep = shortestPath(level.maze, _x+1, _y, player.x, player.y)
 
-        val minStep = uStep min dStep min lStep min rStep
-        if (minStep == uStep) _y -= speed*delay
-        else if (minStep == dStep) _y += speed*delay
-        else if (minStep == lStep) _x -= speed*delay
-        else if (minStep == rStep) _x += speed*delay        
+            val minStep = uStep min dStep min lStep min rStep
+            if (minStep == uStep) _y -= speed*delay
+            else if (minStep == dStep) _y += speed*delay
+            else if (minStep == lStep) _x -= speed*delay
+            else if (minStep == rStep) _x += speed*delay        
+        } else {
+            // Move randomly
+        }
      }
 
      val offsets = Array((-1, 0), (1, 0), (0, -1), (0, 1))

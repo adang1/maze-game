@@ -38,7 +38,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
  def render(level: PassableLevel, cx: Double, cy: Double): Unit = {
    lastCenterX = cx
    lastCenterY = cy
-
+    
    val drawWidth = (gc.canvas.getWidth / blockSize).toInt + 1
    val drawHeight = (gc.canvas.getWidth / blockSize).toInt + 1
 
@@ -70,6 +70,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
    	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
      }
    }
+   //gc.drawScoreboard
  }
 
 }
