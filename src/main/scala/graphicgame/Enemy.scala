@@ -27,7 +27,7 @@ class Enemy (
             else if (minStep == lStep) _x -= speed*delay
             else if (minStep == rStep) _x += speed*delay        
         } else {
-            // Move randomly
+            
         }
      }
 

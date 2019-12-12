@@ -63,7 +63,8 @@ object Client extends JFXApp {
           val x = in.readDouble()
           val y = in.readDouble()
           val enemies = in.readInt()
-          Platform.runLater(renderer.render(pb, x, y, enemies))
+          val dumbenemies = in.readInt()
+          Platform.runLater(renderer.render(pb, x, y, enemies, dumbenemies))
         }
       }
     }

@@ -21,7 +21,7 @@ class Player(
           height,
           this
         )) {_x -= speedP * delay
-        println(x,delay)}
+        }
     if (rightHeld && level.maze.isClear(
           x + speedP * delay,
           y,
@@ -101,6 +101,8 @@ class Player(
     fire(delay)
     for (e <- level.enemies)
       if (Entity.intersect(e, this) == true) here = false
+    for (de <- level.dumbenemies)
+      if (Entity.intersect(de, this) == true) here = false
   }
 
   def postCheck(): Unit = ???

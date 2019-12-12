@@ -35,7 +35,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   /**
    * This method is called to render things to the screen.
    */
- def render(level: PassableLevel, cx: Double, cy: Double, enemies: Int): Unit = {
+ def render(level: PassableLevel, cx: Double, cy: Double, enemies: Int, dumbenemies: Int): Unit = {
    lastCenterX = cx
    lastCenterY = cy
   
@@ -71,7 +71,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
    	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
      }
    }
-   gc.fillText("Enemies: " + enemies, 0, 20)
+   gc.fillText("Enemies: " + enemies + " Ghosts: " + dumbenemies, 0, 20)
  }
 
 }

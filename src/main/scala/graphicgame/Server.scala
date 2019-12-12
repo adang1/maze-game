@@ -28,6 +28,10 @@ object Server extends App {
 	val enemy = new Enemy(r.nextInt(20)*3+1.5, r.nextInt(20)*3+1.5, level)
 	level += enemy
   }
+  for (i <- 1 to 20) {
+  val dumb = new DumbEnemy(r.nextInt(20)*3+1.5, r.nextInt(20)*3+1.5, level)
+  level += dumb
+  }
 
   val ss = new ServerSocket(4041)
 
@@ -61,10 +65,6 @@ object Server extends App {
       if (sendDelay >= sendInterval) {
         val pb = level.makePassable
         sendDelay = 0.0
-        // val delay = (time - lastTime) / 1e9
-        // sendDelay += delay
-        // val sendUpdate = sendDelay >= sendInterval
-        // if (sendUpdate) sendDelay = 0.0
         for (np <- players) {
           if (np.in.available() > 0) {
             val code = np.in.readInt()
@@ -109,7 +109,7 @@ object Server extends App {
           np.out.writeDouble(np.player.x)
           np.out.writeDouble(np.player.y)
           np.out.writeInt(level.enemies.length)
-
+          np.out.writeInt(level.dumbenemies.length)
         }
       }
       lastTime = time
