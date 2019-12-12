@@ -33,7 +33,11 @@ object Client extends JFXApp {
     KeyCode.Left -> KeyEnums.Left,
     KeyCode.Right -> KeyEnums.Right,
     KeyCode.Up -> KeyEnums.Up,
-    KeyCode.Down -> KeyEnums.Down
+    KeyCode.Down -> KeyEnums.Down,
+    KeyCode.A -> KeyEnums.A,
+    KeyCode.W -> KeyEnums.W,
+    KeyCode.S -> KeyEnums.S,
+    KeyCode.D -> KeyEnums.D
   ).withDefaultValue(KeyEnums.Other)
   stage = new JFXApp.PrimaryStage {
 		title = "2D Snipes"
@@ -58,7 +62,8 @@ object Client extends JFXApp {
           }
           val x = in.readDouble()
           val y = in.readDouble()
-          Platform.runLater(renderer.render(pb, x, y))
+          val enemies = in.readInt()
+          Platform.runLater(renderer.render(pb, x, y, enemies))
         }
       }
     }

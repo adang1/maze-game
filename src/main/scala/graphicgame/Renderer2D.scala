@@ -17,7 +17,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   private val wallImage = Renderer2D.loadImage("/images/wall.png")
   private val playerImage = Renderer2D.loadImage("/images/player.png")
   private val enemyImage = Renderer2D.loadImage("/images/enemy.png")
-  private val generatorImage = Renderer2D.loadImage("/images/generator.png")
+  private val dumbImage = Renderer2D.loadImage("/images/dumb.png")
   private val projectileImage = Renderer2D.loadImage("/images/bullet.png")
 
   /**
@@ -35,10 +35,10 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   /**
    * This method is called to render things to the screen.
    */
- def render(level: PassableLevel, cx: Double, cy: Double): Unit = {
+ def render(level: PassableLevel, cx: Double, cy: Double, enemies: Int): Unit = {
    lastCenterX = cx
    lastCenterY = cy
-    
+  
    val drawWidth = (gc.canvas.getWidth / blockSize).toInt + 1
    val drawHeight = (gc.canvas.getWidth / blockSize).toInt + 1
 
@@ -61,6 +61,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
        if (e.style == "p") img = playerImage
        if (e.style == "e") img = enemyImage
        if (e.style == "b") img = projectileImage
+       if (e.style == "de") img = dumbImage
       //  case g: Generator => generatorImage
      
      if(level.maze.wrap) {
@@ -70,7 +71,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
    	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
      }
    }
-   //gc.drawScoreboard
+   gc.fillText("Enemies: " + enemies, 0, 20)
  }
 
 }

@@ -24,8 +24,8 @@ object Server extends App {
   val players = mutable.Buffer[NetworkPlayer]()
   val playerQueue = new LinkedBlockingQueue[NetworkPlayer]()
   val r = new Random
-	for (i <- 1 to 20) {
-	val enemy = new Enemy(r.nextInt(100), r.nextInt(100), level)
+	for (i <- 1 to 5) {
+	val enemy = new Enemy(r.nextInt(20)*3+1.5, r.nextInt(20)*3+1.5, level)
 	level += enemy
   }
 
@@ -36,7 +36,7 @@ object Server extends App {
       val sock = ss.accept()
       val in = new ObjectInputStream(sock.getInputStream())
       val out = new ObjectOutputStream(sock.getOutputStream())
-      val player = new Player(50, 50, level)
+      val player = new Player(r.nextInt(20)*3+1.5, r.nextInt(20)*3+1.5, level)
       val np = NetworkPlayer(sock, in, out, player)
       playerQueue.put(np)
       
@@ -75,16 +75,16 @@ object Server extends App {
                 case KeyEnums.Right => np.player.rightPressed()
                 case KeyEnums.Up    => np.player.upPressed()
                 case KeyEnums.Down  => np.player.downPressed()
-                case KeyCode.A =>
+                case KeyEnums.A =>
                   np.player.aPressed()
 
-                case KeyCode.D =>
+                case KeyEnums.D =>
                   np.player.dPressed()
 
-                case KeyCode.W =>
+                case KeyEnums.W =>
                   np.player.wPressed()
 
-                case KeyCode.S =>
+                case KeyEnums.S =>
                   np.player.sPressed()
 
                 case _ =>
@@ -95,10 +95,10 @@ object Server extends App {
                 case KeyEnums.Right => np.player.rightReleased()
                 case KeyEnums.Up    => np.player.upReleased()
                 case KeyEnums.Down  => np.player.downReleased()
-                case KeyCode.A      => np.player.aReleased()
-                case KeyCode.D      => np.player.dReleased()
-                case KeyCode.W      => np.player.wReleased()
-                case KeyCode.S      => np.player.sReleased()
+                case KeyEnums.A      => np.player.aReleased()
+                case KeyEnums.D      => np.player.dReleased()
+                case KeyEnums.W      => np.player.wReleased()
+                case KeyEnums.S      => np.player.sReleased()
                 case _              =>
               }
             }
@@ -108,6 +108,7 @@ object Server extends App {
 
           np.out.writeDouble(np.player.x)
           np.out.writeDouble(np.player.y)
+          np.out.writeInt(level.enemies.length)
 
         }
       }

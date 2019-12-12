@@ -84,7 +84,7 @@ object Main extends JFXApp {
 				if (lastTime > 0) {
 				val delay = (time - lastTime)/1e9
 				level.updateAll(delay)
-				renderer.render(level.makePassable, player.x, player.y)
+				renderer.render(level.makePassable, player.x, player.y, level.enemies.length)
 			}
 			lastTime = time
 		})

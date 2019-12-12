@@ -7,6 +7,7 @@ class Level (val maze: Maze,
               
               def bullets = _entities.filter(_.etype == "b")
               def enemies = _entities.filter(_.etype == "e")
+              def dumbenemies = _entities.filter(_.etype == "de")
               def players = _entities.collect { case p: Player => p }
                def updateAll(delay: Double): Unit = {
                  _entities = _entities.filter(_.stillHere)
